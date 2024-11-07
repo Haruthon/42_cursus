@@ -8,10 +8,10 @@ static char	**free_array(char **ptr, int i)
 		free(ptr[i]);
 	}
 	free(ptr);
-	return (0);
+	return (NULL);
 }
 
-static int	ft_count_words(char const *str, char c)
+static int	count_words(char const *str, char c)
 {
 	int	i;
 	int	count;
@@ -32,7 +32,7 @@ static int	ft_count_words(char const *str, char c)
 	return (count);
 }
 
-static char	*ft_putword(char *word, char const *s, int i, int word_len)
+static char	*putword(char *word, char const *s, int i, int word_len)
 {
 	int	j;
 
@@ -47,16 +47,16 @@ static char	*ft_putword(char *word, char const *s, int i, int word_len)
 	return (word);
 }
 
-static char	**ft_split_words(char const *s, char c, char **s2, int num_words)
+static char	**split_words(char const *s, char c, char **s2, int count)
 {
 	int	i;
-	int	word;
+	int	index;
 	int	word_len;
 
 	i = 0;
-	word = 0;
+	index = 0;
 	word_len = 0;
-	while (word < num_words)
+	while (index < count)
 	{
 		while (s[i] && s[i] == c)
 			i++;
@@ -65,28 +65,28 @@ static char	**ft_split_words(char const *s, char c, char **s2, int num_words)
 			i++;
 			word_len++;
 		}
-		s2[word] = (char *)malloc(sizeof(char) * (word_len + 1));
-		if (!s2)
-			return (free_array(s2, word));
-		ft_putword(s2[word], s, i, word_len);
+		s2[index] = (char *)malloc(sizeof(char) * (word_len + 1));
+		if (!s2[index])
+			return (free_array(s2, index));
+		putword(s2[index], s, i, word_len);
 		word_len = 0;
-		word++;
+		index++;
 	}
-	s2[word] = 0;
+	s2[index] = NULL;
 	return (s2);
 }
 
 char	**ft_split(char const *s, char c)
 {
 	char			**s2;
-	unsigned int	num_words;
+	unsigned int	count;
 
 	if (!s)
-		return (0);
-	num_words = ft_count_words(s, c);
-	s2 = (char **)malloc(sizeof(char *) * (num_words + 1));
+		return (NULL);
+	count = count_words(s, c);
+	s2 = (char **)malloc(sizeof(char *) * (count + 1));
 	if (!s2)
-		return (0);
-	s2 = ft_split_words(s, c, s2, num_words);
+		return (NULL);
+	s2 = split_words(s, c, s2, count);
 	return (s2);
 }

@@ -19,14 +19,14 @@ char	*ft_strrchr(const char *s, int c)
 {
 	const char	*save;
 
+	save = NULL;
 	while (*s)
 	{
 		if (*s == (char)c)
 			save = (char *)s;
 		s++;
 	}
-	if ((char *)save)
-		return ((char *)save);
-	else
-		return (NULL);
+	if (*s == (char)c)
+		save = s;
+	return ((char *)save);
 }

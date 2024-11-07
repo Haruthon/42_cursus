@@ -1,65 +1,48 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_itoa.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: harufuji <harufuji@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/03 19:59:15 by harufuji          #+#    #+#             */
-/*   Updated: 2024/11/03 20:30:00 by harufuji         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "libft.h"
 
-int	check_size(int n)
+static int check_size(long int n)
 {
-	int	size;
+	int count;
 
-	size = 0;
-	if (n < 0)
-		size++;
-	while (n > 10)
+	count = 0;
+	if(n <= 0)
 	{
-		size++;
+		count++;
+		n = -n;
+	}
+	while(n != 0)
+	{
+		count++;
 		n /= 10;
 	}
-	return (size);
-}
-int	check_digit(int size)
-{
-	int	digit;
-
-	digit = 1;
-	while (size--)
-		digit *= 10;
-	return (digit / 10);
+	return count;
 }
 
-char	*ft_itoa(int n)
+char *ft_itoa(int n)
 {
-	int		size;
-	int		save;
-	char	*result;
-	size_t	index;
+	int size;
+	long int long_n;
+	char *result;
 
+	long_n = (long int)n;
 	size = check_size(n);
-	result = (char *)malloc(size + 1);
-	save = n;
-	index = 0;
-	if (n < 0)
+	result = malloc(sizeof(char) * size + 1);
+	if(!result)
+		return NULL;
+	result[size] = '\0';
+	if(long_n < 0)
 	{
 		result[0] = '-';
-		n = -n;
-		index++;
+		long_n = -long_n;
 	}
-	while (size)
+	else if(n == 0)
 	{
-		result[index] = save / check_digit(size) + '0';
-		save = save % check_digit(size);
-		index++;
-		size--;
+		result[0] = '0';
 	}
-	result[index] = '\0';
-	return (result);
+	while(long_n != 0 && size--)
+	{
+		result[size] = (long_n % 10) + '0';
+		long_n /= 10;
+	}
+	return result;
 }
