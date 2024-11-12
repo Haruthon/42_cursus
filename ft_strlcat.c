@@ -2,11 +2,11 @@
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   ft_strlcat.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+        
+/*                                                    +:+ +:+
 	+:+     */
-/*   By: harufuji <harufuji@student.42.fr>          +#+  +:+      
+/*   By: harufuji <harufuji@student.42.fr>          +#+  +:+
 	+#+        */
-/*                                                +#+#+#+#+#+  
+/*                                                +#+#+#+#+#+
 	+#+           */
 /*   Created: 2024/11/03 18:23:07 by harufuji          #+#    #+#             */
 /*   Updated: 2024/11/03 18:23:07 by harufuji         ###   ########.fr       */
@@ -27,7 +27,7 @@ size_t	ft_strlcat(char *dest, const char *src, size_t size)
 		dest_len++;
 	while (src[src_len] != '\0')
 		src_len++;
-	if(dest_len == size)
+	if (dest_len == size)
 		return (size + src_len);
 	i = 0;
 	while (src[i] != '\0' && dest_len + i < size - 1)

@@ -15,7 +15,7 @@
 
 #include "libft.h"
 
-static int check_set(char c, char const *set)
+static int	check_set(char c, char const *set)
 {
 	while (*set)
 	{
@@ -41,6 +41,8 @@ char	*ft_strtrim(char const *s1, char const *set)
 	end = ft_strlen(s1);
 	while (check_set(s1[end - 1], set))
 		end--;
+	if (end < start)
+		return (ft_strdup(""));
 	result = (char *)malloc(end - start + 1);
 	i = 0;
 	while (start < end)
