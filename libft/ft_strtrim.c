@@ -39,9 +39,9 @@ char	*ft_strtrim(char const *s1, char const *set)
 	while (check_set(s1[start], set))
 		start++;
 	end = ft_strlen(s1);
-	while (check_set(s1[end - 1], set))
+	while (end > start && check_set(s1[end - 1], set))
 		end--;
-	if (end < start)
+	if (end <= start)
 		return (ft_strdup(""));
 	result = (char *)malloc(end - start + 1);
 	i = 0;
