@@ -1,40 +1,44 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+
-	+:+     */
-/*   By: harufuji <harufuji@student.42.fr>          +#+  +:+
-	+#+        */
-/*                                                +#+#+#+#+#+
-	+#+           */
-/*   Created: 2024/11/03 17:33:26 by harufuji          #+#    #+#             */
-/*   Updated: 2024/11/03 17:33:26 by harufuji         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "libft.h"
 
-
-int	ft_atoi(const char *nptr)
+static int check_overflow(int sign, unsigned long result, unsigned before)
 {
-	unsigned long result;
-	int sign;
-	size_t i;
+    unsigned long limit;
 
-	i = 0;
-	while (nptr[i] == ' ' || (nptr[i] >= '\t' && nptr[i] <= '\r'))
-		i++;
-	sign = 1;
-	if (nptr[i++] == '-')
-		sign = -1;
-	else if (nptr[i] == '+')
-		i++;
+    if (sign > 0)
+        limit = (unsigned long)LONG_MAX;
+    else
+        limit = (unsigned long)LONG_MAX + 1;
+    return (limit / 10 < result || limit - result * 10 < before);
+}
+
+static int parse_sign(const char **str)
+{
+    if (**str == '-')
+    {
+        (*str)++;
+        return -1;
+    }
+    if (**str == '+')
+        (*str)++;
+    return 1;
+}
+
+int ft_atoi(const char *nptr)
+{
+    unsigned long result;
+    int sign;
+
 	result = 0;
-	while (nptr[i] >= '0' && nptr[i] <= '9')
-	{
-		result = result * 10 + (nptr[i] - '0');
-		i++;
-	}
-	return ((int)(result * sign));
+	sign = parse_sign(&nptr);
+    while (*nptr >= '0' && *nptr <= '9')
+    {
+        if (check_overflow(sign, result, *nptr - '0'))
+		{
+			if(sign > 0)
+				return (int)LONG_MAX;
+			return (int)LONG_MIN;
+		}
+        result = result * 10 + (*nptr++ - '0');
+    }
+    return ((int)(result * sign));
 }
