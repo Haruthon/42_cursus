@@ -2,11 +2,11 @@
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+        
+/*                                                    +:+ +:+
 	+:+     */
-/*   By: harufuji <harufuji@student.42.fr>          +#+  +:+      
+/*   By: harufuji <harufuji@student.42.fr>          +#+  +:+
 	+#+        */
-/*                                                +#+#+#+#+#+  
+/*                                                +#+#+#+#+#+
 	+#+           */
 /*   Created: 2024/11/03 18:51:42 by harufuji          #+#    #+#             */
 /*   Updated: 2024/11/03 18:51:42 by harufuji         ###   ########.fr       */
@@ -21,7 +21,7 @@ char	*ft_strdup(const char *s)
 	char	*copy;
 
 	if (s == NULL)
-		return (NULL);
+		return (malloc(0));
 	len = ft_strlen(s);
 	copy = (char *)malloc(len + 1);
 	if (copy == NULL)

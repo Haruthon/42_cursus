@@ -2,11 +2,11 @@
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+        
+/*                                                    +:+ +:+
 	+:+     */
-/*   By: harufuji <harufuji@student.42.fr>          +#+  +:+      
+/*   By: harufuji <harufuji@student.42.fr>          +#+  +:+
 	+#+        */
-/*                                                +#+#+#+#+#+  
+/*                                                +#+#+#+#+#+
 	+#+           */
 /*   Created: 2024/11/10 16:02:40 by harufuji          #+#    #+#             */
 /*   Updated: 2024/11/10 16:02:40 by harufuji         ###   ########.fr       */
@@ -17,10 +17,13 @@
 
 void	ft_putendl_fd(char *s, int fd)
 {
-	while (*s)
+	if (s != NULL)
 	{
-		write(fd, s, 1);
-		s++;
+		while (*s)
+		{
+			write(fd, s, 1);
+			s++;
+		}
+		write(fd, "\n", 1);
 	}
-	write(fd, "\n", 1);
 }

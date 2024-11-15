@@ -8,35 +8,55 @@
 	+#+        */
 /*                                                +#+#+#+#+#+
 	+#+           */
-/*   Created: 2024/11/03 17:33:26 by harufuji          #+#    #+#             */
-/*   Updated: 2024/11/03 17:33:26 by harufuji         ###   ########.fr       */
+/*   Created: 2024/11/15 14:38:15 by harufuji          #+#    #+#             */
+/*   Updated: 2024/11/15 14:38:15 by harufuji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+static int	check_overflow(int sign, unsigned long result,
+		unsigned long before)
+{
+	unsigned long	limit;
+
+	if (sign > 0)
+		limit = (unsigned long)LONG_MAX;
+	else
+		limit = (unsigned long)LONG_MAX + 1;
+	return (limit / 10 < result || limit - result * 10 < before);
+}
+
+static int	parse_sign(const char **str)
+{
+	if (**str == '-')
+	{
+		(*str)++;
+		return (-1);
+	}
+	if (**str == '+')
+		(*str)++;
+	return (1);
+}
+
 int	ft_atoi(const char *nptr)
 {
-	int		result;
-	int		sign;
-	size_t	i;
+	unsigned long	result;
+	int				sign;
 
-	i = 0;
-	while (nptr[i] == ' ' || (nptr[i] >= '\t' && nptr[i] <= '\r'))
-		i++;
-	sign = 1;
-	if (nptr[i] == '-')
-	{
-		sign = -1;
-		i++;
-	}
-	else if (nptr[i] == '+')
-		i++;
 	result = 0;
-	while (nptr[i] >= '0' && nptr[i] <= '9')
+	while (*nptr == ' ' || (*nptr >= '\t' && *nptr <= '\r'))
+		nptr++;
+	sign = parse_sign(&nptr);
+	while (*nptr >= '0' && *nptr <= '9')
 	{
-		result = result * 10 + (nptr[i] - '0');
-		i++;
+		if (check_overflow(sign, result, *nptr - '0'))
+		{
+			if (sign > 0)
+				return ((int)LONG_MAX);
+			return ((int)LONG_MIN);
+		}
+		result = result * 10 + (*nptr++ - '0');
 	}
-	return (result * sign);
+	return ((int)(result * sign));
 }
