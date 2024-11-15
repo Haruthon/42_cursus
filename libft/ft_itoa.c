@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: harufuji <harufuji@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 16:00:23 by harufuji          #+#    #+#             */
-/*   Updated: 2024/11/10 16:00:45 by harufuji         ###   ########.fr       */
+/*   Updated: 2024/11/15 12:01:48 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*ft_itoa(int n)
 
 	long_n = (long int)n;
 	size = check_size(n);
-	result = malloc(sizeof(char) * size + 1);
+	result = malloc(sizeof(char) * (size + 1));
 	if (!result)
 		return (NULL);
 	result[size] = '\0';
@@ -48,9 +48,7 @@ char	*ft_itoa(int n)
 		long_n = -long_n;
 	}
 	else if (n == 0)
-	{
 		result[0] = '0';
-	}
 	while (long_n != 0 && size--)
 	{
 		result[size] = (long_n % 10) + '0';

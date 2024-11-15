@@ -5,8 +5,8 @@
 
 int	main(void)
 {
-	printf("%d %d\n", atoi("2147483647"), ft_atoi("2147483647"));
-	printf("%d %d\n", atoi("2147483648"), ft_atoi("2147483648"));
+	printf("%d %d\n", atoi("214748364"), ft_atoi("214748364"));
+	printf("%d %d\n", atoi("-2147483648"), ft_atoi("2147483648"));
 	printf("%d %d\n", atoi("2147483649"), ft_atoi("2147483649"));
 	printf("%d %d\n", atoi("4294967295"), ft_atoi("4294967295"));
 	printf("%d %d\n", atoi("4294967296"), ft_atoi("4294967296"));
